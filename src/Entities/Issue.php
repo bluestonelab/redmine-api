@@ -21,6 +21,8 @@ class Issue extends DataTransferObject
 
     public ?Project $project;
 
+    public ?Category $category;
+
     public ?Tracker $tracker;
 
     public ?Status $status;
@@ -107,6 +109,7 @@ class Issue extends DataTransferObject
             'description' => $this->description,
             'project_id' => $this->project?->id,
             'tracker_id' => $this->tracker?->id,
+            'category_id' => $this->category?->id,
             'status_id' => $this->status?->id,
             'parent_issue_id' => $this->parent?->id,
             'priority_id' => $this->priority?->id,
