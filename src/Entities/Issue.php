@@ -78,6 +78,9 @@ class Issue extends DataTransferObject
     #[CastWith(ArrayCaster::class, itemType: Relation::class)]
     public ?array $relations;
 
+    #[CastWith(ArrayCaster::class, itemType: Attachment::class)]
+    public ?array $attachments;
+
     public ?string $note;
 
     public function getCustomField(string $fieldName): ?CustomField
@@ -89,6 +92,17 @@ class Issue extends DataTransferObject
         $field = array_filter($this->customFields, fn (CustomField $field) => $field->name === $fieldName);
 
         return array_pop($field);
+    }
+
+    public function getAttachmentByName(string $name): ?Attachment
+    {
+        if (! $this->attachments) {
+            return null;
+        }
+
+        $attachment = array_filter($this->attachments, fn (Attachment $attachment) => $attachment->filename === $name);
+
+        return array_pop($attachment);
     }
 
     public function getUrl(): ?string

@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Bluestone\Redmine\Entities\Attachment;
 use Bluestone\Redmine\Entities\Category;
 use DateTime;
 use Bluestone\Redmine\Client;
@@ -23,7 +24,7 @@ class CanManageIssueTest extends TestCase
     public function can_have_all()
     {
         $http = $this->createHttpMock(
-            body: '{"issues":[{"id":2,"project":{"id":1,"name":"Kanban POP"},"tracker":{"id":2,"name":"tech"},"category":{"id":42,"name":"Front"},"status":{"id":1,"name":"New"},"priority":{"id":1,"name":"Low"},"author":{"id":1,"name":"Redmine Admin"},"fixed_version":{"id":1,"name":"v0.1"},"subject":"Mise à jour Laravel 9","description":"","start_date":"2021-10-05","due_date":null,"done_ratio":0,"is_private":false,"estimated_hours":null,"custom_fields":[{"id":1,"name":"Valeur métier","value":"1000"},{"id":2,"name":"Complexité","value":"3"}],"created_on":"2021-10-05T20:08:55Z","updated_on":"2021-10-05T20:24:52Z","closed_on":null},{"id":1,"project":{"id":1,"name":"Kanban POP"},"tracker":{"id":1,"name":"feat"},"status":{"id":2,"name":"In progress"},"priority":{"id":1,"name":"Low"},"author":{"id":1,"name":"Redmine Admin"},"subject":"Vers l\'infini et au delà","description":"C\'est mieux ici.","start_date":"2021-09-24","due_date":null,"done_ratio":0,"is_private":false,"estimated_hours":null,"custom_fields":[{"id":1,"name":"Valeur métier","value":null},{"id":2,"name":"Complexité","value":null}],"created_on":"2021-09-24T13:51:40Z","updated_on":"2021-10-05T19:44:54Z","closed_on":null}],"total_count":2,"offset":0,"limit":5}'
+            body: '{"issues":[{"id":2,"project":{"id":1,"name":"Kanban POP"},"tracker":{"id":2,"name":"tech"},"category":{"id":42,"name":"Front"},"status":{"id":1,"name":"New"},"attachments":[{"id":13,"filename":"test.png","filesize":13,"content_type":"image/png","description":"","content_url":"https://redmine.org/attachments/download/13/test.png","thumbnail_url":"https://redmine.org/attachments/thumbnail/13","author":{"id":1,"name":"jo.doe"},"created_on":"2022-10-14T12:55:16Z"}],"priority":{"id":1,"name":"Low"},"author":{"id":1,"name":"Redmine Admin"},"fixed_version":{"id":1,"name":"v0.1"},"subject":"Mise à jour Laravel 9","description":"","start_date":"2021-10-05","due_date":null,"done_ratio":0,"is_private":false,"estimated_hours":null,"custom_fields":[{"id":1,"name":"Valeur métier","value":"1000"},{"id":2,"name":"Complexité","value":"3"}],"created_on":"2021-10-05T20:08:55Z","updated_on":"2021-10-05T20:24:52Z","closed_on":null},{"id":1,"project":{"id":1,"name":"Kanban POP"},"tracker":{"id":1,"name":"feat"},"status":{"id":2,"name":"In progress"},"priority":{"id":1,"name":"Low"},"author":{"id":1,"name":"Redmine Admin"},"subject":"Vers l\'infini et au delà","description":"C\'est mieux ici.","start_date":"2021-09-24","due_date":null,"done_ratio":0,"is_private":false,"estimated_hours":null,"custom_fields":[{"id":1,"name":"Valeur métier","value":null},{"id":2,"name":"Complexité","value":null}],"created_on":"2021-09-24T13:51:40Z","updated_on":"2021-10-05T19:44:54Z","closed_on":null}],"total_count":2,"offset":0,"limit":5}'
         );
 
         $redmine = new Client($http);
@@ -87,6 +88,13 @@ class CanManageIssueTest extends TestCase
         $this->assertEquals('Valeur métier', $issue->customFields[0]->name);
         $this->assertEquals('1000', $issue->customFields[0]->value);
         $this->assertEquals('1000', $issue->getCustomField('Valeur métier')->value);
+
+        $this->assertIsArray($issue->attachments);
+        $this->assertInstanceOf(Attachment::class, $issue->attachments[0]);
+        $this->assertEquals(13, $issue->attachments[0]->id);
+        $this->assertEquals('test.png', $issue->attachments[0]->filename);
+        $this->assertEquals('https://redmine.org/attachments/download/13/test.png', $issue->attachments[0]->url);
+        $this->assertEquals(13, $issue->getAttachmentByName('test.png')->id);
 
         $this->assertInstanceOf(DateTime::class, $issue->createdOn);
         $this->assertEquals('2021-10-05', $issue->createdOn->format('Y-m-d'));
