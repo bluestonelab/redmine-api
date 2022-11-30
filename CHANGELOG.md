@@ -4,6 +4,12 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 1.2.0 (2022-11-30)
+
+### Features
+
+* Add attachments to Issue.
+
 ## 1.1.0 (2022-11-29)
 
 ### Features
