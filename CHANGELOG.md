@@ -4,6 +4,12 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 1.2.1 (2022-12-06)
+
+### Code Refactoring
+
+* Replace Spatie DTO package with ours.
+
 ## 1.2.0 (2022-11-30)
 
 ### Features
