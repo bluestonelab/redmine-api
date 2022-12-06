@@ -2,26 +2,26 @@
 
 namespace Bluestone\Redmine\Entities;
 
+use Bluestone\DataTransferObject\Attributes\CastWith;
+use Bluestone\DataTransferObject\Attributes\Map;
 use DateTime;
 use Bluestone\Redmine\Casters\DateTimeCaster;
-use Spatie\DataTransferObject\Attributes\CastWith;
-use Spatie\DataTransferObject\Attributes\MapFrom;
-use Spatie\DataTransferObject\DataTransferObject;
+use Bluestone\DataTransferObject\DataTransferObject;
 
 class Journal extends DataTransferObject
 {
     public int $id;
 
-    #[MapFrom('user')]
+    #[Map('user')]
     public User $author;
 
     public ?string $notes;
 
-    #[MapFrom('created_on')]
+    #[Map('created_on')]
     #[CastWith(DateTimeCaster::class)]
     public DateTime $createdOn;
 
-    #[MapFrom('private_notes')]
+    #[Map('private_notes')]
     public bool $privateNotes;
 
     public array $details;

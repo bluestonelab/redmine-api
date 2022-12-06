@@ -2,11 +2,11 @@
 
 namespace Bluestone\Redmine\Entities;
 
+use Bluestone\DataTransferObject\Attributes\CastWith;
+use Bluestone\DataTransferObject\Attributes\Map;
+use Bluestone\DataTransferObject\DataTransferObject;
 use Bluestone\Redmine\Casters\DateTimeCaster;
 use DateTime;
-use Spatie\DataTransferObject\Attributes\CastWith;
-use Spatie\DataTransferObject\Attributes\MapFrom;
-use Spatie\DataTransferObject\DataTransferObject;
 
 class Attachment extends DataTransferObject
 {
@@ -16,20 +16,20 @@ class Attachment extends DataTransferObject
 
     public ?string $filesize;
 
-    #[MapFrom('content_type')]
+    #[Map('content_type')]
     public ?string $contentType;
 
     public ?string $description;
 
-    #[MapFrom('content_url')]
+    #[Map('content_url')]
     public ?string $url;
 
-    #[MapFrom('thumbnail_url')]
+    #[Map('thumbnail_url')]
     public ?string $thumbnailUrl;
 
     public ?User $author;
 
-    #[MapFrom('created_on')]
+    #[Map('created_on')]
     #[CastWith(DateTimeCaster::class)]
     public ?DateTime $createdOn;
 }

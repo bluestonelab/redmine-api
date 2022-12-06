@@ -2,13 +2,23 @@
 
 namespace Bluestone\Redmine\Casters;
 
+use Bluestone\DataTransferObject\Casters\Caster;
 use DateTime;
-use Spatie\DataTransferObject\Caster;
 
 class DateTimeCaster implements Caster
 {
-    public function cast(mixed $value): DateTime
+    public function __construct(
+        public string $format = DateTime::ATOM
+    ) {
+    }
+
+    public function set(mixed $value)
     {
-        return new DateTime($value);
+        return DateTime::createFromFormat($this->format, $value);
+    }
+
+    public function get(mixed $value)
+    {
+        return $value?->format($this->format);
     }
 }

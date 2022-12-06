@@ -2,11 +2,11 @@
 
 namespace Bluestone\Redmine\Entities;
 
+use Bluestone\DataTransferObject\Attributes\CastWith;
+use Bluestone\DataTransferObject\Attributes\Map;
 use DateTime;
 use Bluestone\Redmine\Casters\DateTimeCaster;
-use Spatie\DataTransferObject\Attributes\CastWith;
-use Spatie\DataTransferObject\Attributes\MapFrom;
-use Spatie\DataTransferObject\DataTransferObject;
+use Bluestone\DataTransferObject\DataTransferObject;
 
 class Version extends DataTransferObject
 {
@@ -20,20 +20,20 @@ class Version extends DataTransferObject
 
     public ?string $status;
 
-    #[MapFrom('due_date')]
+    #[Map('due_date')]
     #[CastWith(DateTimeCaster::class)]
     public ?DateTime $dueDate;
 
     public ?string $sharing;
 
-    #[MapFrom('wiki_page_title')]
+    #[Map('wiki_page_title')]
     public ?string $wikiPageTitle;
 
-    #[MapFrom('created_on')]
+    #[Map('created_on')]
     #[CastWith(DateTimeCaster::class)]
     public ?DateTime $createdOn;
 
-    #[MapFrom('updated_on')]
+    #[Map('updated_on')]
     #[CastWith(DateTimeCaster::class)]
     public ?DateTime $updatedOn;
 }

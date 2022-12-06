@@ -2,12 +2,12 @@
 
 namespace Bluestone\Redmine\Entities;
 
+use Bluestone\DataTransferObject\Attributes\CastWith;
+use Bluestone\DataTransferObject\Attributes\Map;
+use Bluestone\DataTransferObject\Casters\ArrayCaster;
 use DateTime;
 use Bluestone\Redmine\Casters\DateTimeCaster;
-use Spatie\DataTransferObject\Attributes\CastWith;
-use Spatie\DataTransferObject\Attributes\MapFrom;
-use Spatie\DataTransferObject\Casters\ArrayCaster;
-use Spatie\DataTransferObject\DataTransferObject;
+use Bluestone\DataTransferObject\DataTransferObject;
 
 class Issue extends DataTransferObject
 {
@@ -33,52 +33,52 @@ class Issue extends DataTransferObject
 
     public ?User $author;
 
-    #[MapFrom('assigned_to')]
+    #[Map('assigned_to')]
     public ?User $assignedTo;
 
-    #[MapFrom('fixed_version')]
+    #[Map('fixed_version')]
     public ?Version $version;
 
-    #[MapFrom('start_date')]
-    #[CastWith(DateTimeCaster::class)]
+    #[Map('start_date')]
+    #[CastWith(DateTimeCaster::class, format: 'Y-m-d')]
     public ?DateTime $startDate;
 
-    #[MapFrom('due_date')]
+    #[Map('due_date')]
     #[CastWith(DateTimeCaster::class)]
     public ?DateTime $dueDate;
 
-    #[MapFrom('done_ratio')]
+    #[Map('done_ratio')]
     public ?int $doneRatio;
 
-    #[MapFrom('is_private')]
+    #[Map('is_private')]
     public ?bool $isPrivate;
 
-    #[MapFrom('estimated_hours')]
+    #[Map('estimated_hours')]
     public ?int $estimatedHours;
 
-    #[MapFrom('custom_fields')]
-    #[CastWith(ArrayCaster::class, itemType: CustomField::class)]
+    #[Map('custom_fields')]
+    #[CastWith(ArrayCaster::class, type: CustomField::class)]
     public ?array $customFields;
 
-    #[CastWith(ArrayCaster::class, itemType: Journal::class)]
+    #[CastWith(ArrayCaster::class, type: Journal::class)]
     public ?array $journals;
 
-    #[MapFrom('created_on')]
+    #[Map('created_on')]
     #[CastWith(DateTimeCaster::class)]
     public ?DateTime $createdOn;
 
-    #[MapFrom('updated_on')]
+    #[Map('updated_on')]
     #[CastWith(DateTimeCaster::class)]
     public ?DateTime $updatedOn;
 
-    #[MapFrom('closed_on')]
+    #[Map('closed_on')]
     #[CastWith(DateTimeCaster::class)]
     public ?DateTime $closedOn;
 
-    #[CastWith(ArrayCaster::class, itemType: Relation::class)]
+    #[CastWith(ArrayCaster::class, type: Relation::class)]
     public ?array $relations;
 
-    #[CastWith(ArrayCaster::class, itemType: Attachment::class)]
+    #[CastWith(ArrayCaster::class, type: Attachment::class)]
     public ?array $attachments;
 
     public ?string $note;

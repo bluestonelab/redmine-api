@@ -2,7 +2,7 @@
 
 namespace Bluestone\Redmine\Entities;
 
-use Spatie\DataTransferObject\DataTransferObject;
+use Bluestone\DataTransferObject\DataTransferObject;
 
 class Response extends DataTransferObject
 {
