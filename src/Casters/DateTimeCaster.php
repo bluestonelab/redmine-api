@@ -14,7 +14,7 @@ class DateTimeCaster implements Caster
 
     public function set(mixed $value)
     {
-        return DateTime::createFromFormat($this->format, $value);
+        return $value ? DateTime::createFromFormat($this->format, $value) : null;
     }
 
     public function get(mixed $value)
