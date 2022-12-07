@@ -44,7 +44,7 @@ class Issue extends DataTransferObject
     public ?DateTime $startDate;
 
     #[Map('due_date')]
-    #[CastWith(DateTimeCaster::class)]
+    #[CastWith(DateTimeCaster::class, format: 'Y-m-d')]
     public ?DateTime $dueDate;
 
     #[Map('done_ratio')]
