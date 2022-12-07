@@ -4,6 +4,12 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 1.2.2 (2022-12-07)
+
+### Bug Fixes
+
+* Nullable DateTime casting.
+
 ## 1.2.1 (2022-12-06)
 
 ### Code Refactoring
