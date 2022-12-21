@@ -4,6 +4,14 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 1.2.4 (2022-12-21)
+
+### Bug Fixes
+
+* Serialization of Issue.
+* Property name of Status is nullable.
+* Serialize startDate & dueDate of Issue.
+
 ## 1.2.3 (2022-12-07)
 
 ### Bug Fixes
