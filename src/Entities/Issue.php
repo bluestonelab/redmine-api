@@ -131,8 +131,8 @@ class Issue extends DataTransferObject
             'estimated_hours' => $this->estimatedHours,
             'custom_fields' => array_map(fn (CustomField $field) => $field->serialize(), $this->customFields ?? []),
             'notes' => $this->note,
-            'start_date' => $this->startDate->format('Y-m-d'),
-            'due_date' => $this->dueDate->format('Y-m-d'),
+            'start_date' => $this->startDate?->format('Y-m-d'),
+            'due_date' => $this->dueDate?->format('Y-m-d'),
         ];
     }
 }
