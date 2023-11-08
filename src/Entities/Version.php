@@ -21,7 +21,7 @@ class Version extends DataTransferObject
     public ?string $status;
 
     #[Map('due_date')]
-    #[CastWith(DateTimeCaster::class)]
+    #[CastWith(DateTimeCaster::class, 'Y-m-d')]
     public ?DateTime $dueDate;
 
     public ?string $sharing;
