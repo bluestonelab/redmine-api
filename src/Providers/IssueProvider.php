@@ -48,9 +48,32 @@ class IssueProvider
         );
     }
 
+    public function create(Issue $issue): Response
+    {
+        $response = $this->http->sendRequest('post', "issues.json", ['issue' => $issue->serialize()]);
+
+        $issue = new Issue(
+            $response['body']['issue'] + ['baseUri' => $response['baseUri']]
+        );
+
+        return new Response(
+            statusCode: $response['statusCode'],
+            items: [$issue],
+        );
+    }
+
     public function update(Issue $issue): Response
     {
         $response = $this->http->sendRequest('put', "issues/{$issue->id}.json", ['issue' => $issue->serialize()]);
+
+        return new Response(
+            statusCode: $response['statusCode'],
+        );
+    }
+
+    public function delete(Issue $issue): Response
+    {
+        $response = $this->http->sendRequest('delete', "issues/{$issue->id}.json");
 
         return new Response(
             statusCode: $response['statusCode'],

@@ -2,6 +2,8 @@
 
 namespace Bluestone\Redmine;
 
+use Bluestone\Redmine\Providers\UserProvider;
+use Bluestone\Redmine\Providers\TrackerProvider;
 use Bluestone\Redmine\Exceptions\UnexpectedProviderException;
 use Bluestone\Redmine\Providers\IssueProvider;
 use Bluestone\Redmine\Providers\ProjectProvider;
@@ -13,6 +15,8 @@ use Bluestone\Redmine\Providers\VersionProvider;
  * @method ProjectProvider project()
  * @method VersionProvider version()
  * @method TimeEntryProvider timeEntry()
+ * @method TrackerProvider tracker()
+ * @method UserProvider user()
  */
 class Client
 {
@@ -28,6 +32,8 @@ class Client
             'project' => new ProjectProvider($this->http),
             'version' => new VersionProvider($this->http),
             'timeEntry' => new TimeEntryProvider($this->http),
+            'tracker' => new TrackerProvider($this->http),
+            'user' => new UserProvider($this->http),
             default => throw new UnexpectedProviderException($name),
         };
     }

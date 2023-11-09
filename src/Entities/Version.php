@@ -36,4 +36,16 @@ class Version extends DataTransferObject
     #[Map('updated_on')]
     #[CastWith(DateTimeCaster::class)]
     public ?DateTime $updatedOn;
+
+    public function serialize(): array
+    {
+        return [
+            'name' => $this->name,
+            'status' => $this->status,
+            'sharing' => $this->sharing,
+            'due_date' => $this->dueDate?->format('Y-m-d'),
+            'description' => $this->description,
+            'wiki_page_title' => $this->wikiPageTitle,
+        ];
+    }
 }
