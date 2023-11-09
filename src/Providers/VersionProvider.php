@@ -32,4 +32,54 @@ class VersionProvider
             total: $response['body']['total_count'] ?? count($versions)
         );
     }
+
+    public function get(int $id, array $params = []): Response
+    {
+        $response = $this->http->sendRequest('get', "versions/{$id}.json", $params);
+
+        $version = new Version($response['body']['version']);
+
+        return new Response(
+            statusCode: $response['statusCode'],
+            items: [$version],
+        );
+    }
+
+    public function create(Project $project, Version $version): Response
+    {
+        $response = $this->http->sendRequest(
+            'post',
+            "projects/{$project->id}/versions.json",
+            ['version' => $version->serialize()]
+        );
+
+        $version = new Version($response['body']['version']);
+
+        return new Response(
+            statusCode: $response['statusCode'],
+            items: [$version],
+        );
+    }
+
+    public function update(Version $version): Response
+    {
+        $response = $this->http->sendRequest(
+            'put',
+            "versions/{$version->id}.json",
+            ['version' => $version->serialize()]
+        );
+
+        return new Response(
+            statusCode: $response['statusCode'],
+        );
+    }
+
+    public function delete(Version $version): Response
+    {
+        $response = $this->http->sendRequest('delete', "versions/{$version->id}.json");
+
+        return new Response(
+            statusCode: $response['statusCode'],
+        );
+    }
 }

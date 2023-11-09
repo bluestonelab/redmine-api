@@ -31,4 +31,50 @@ class TimeEntryProvider
             total: $response['body']['total_count'] ?? count($timeEntries)
         );
     }
+
+    public function get(int $id, array $params = []): Response
+    {
+        $response = $this->http->sendRequest('get', "time_entries/{$id}.json", $params);
+
+        $timeEntry = new TimeEntry($response['body']['time_entry']);
+
+        return new Response(
+            statusCode: $response['statusCode'],
+            items: [$timeEntry],
+        );
+    }
+
+    public function create(TimeEntry $timeEntry): Response
+    {
+        $response = $this->http->sendRequest('post', "time_entries.json", ['time_entry' => $timeEntry->serialize()]);
+
+        $timeEntry = new TimeEntry($response['body']['time_entry']);
+
+        return new Response(
+            statusCode: $response['statusCode'],
+            items: [$timeEntry],
+        );
+    }
+
+    public function update(TimeEntry $timeEntry): Response
+    {
+        $response = $this->http->sendRequest(
+            'put',
+            "time_entries/{$timeEntry->id}.json",
+            ['time_entry' => $timeEntry->serialize()]
+        );
+
+        return new Response(
+            statusCode: $response['statusCode'],
+        );
+    }
+
+    public function delete(TimeEntry $timeEntry): Response
+    {
+        $response = $this->http->sendRequest('delete', "time_entries/{$timeEntry->id}.json");
+
+        return new Response(
+            statusCode: $response['statusCode'],
+        );
+    }
 }

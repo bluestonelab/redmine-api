@@ -133,6 +133,9 @@ class Issue extends DataTransferObject
             'notes' => $this->note,
             'start_date' => $this->startDate?->format('Y-m-d'),
             'due_date' => $this->dueDate?->format('Y-m-d'),
+            'done_ratio' => $this->doneRatio,
+            'assigned_to_id' => $this->assignedTo?->id,
+            'is_private' => $this->isPrivate,
         ];
     }
 }

@@ -36,4 +36,16 @@ class TimeEntry extends DataTransferObject
     #[Map('updated_on')]
     #[CastWith(DateTimeCaster::class)]
     public DateTime $updatedOn;
+
+    public function serialize(): array
+    {
+        return [
+            'issue_id' => $this->issue->id,
+            'spent_on' => $this->spentOn?->format('Y-m-d'),
+            'hours' => $this->hours,
+            'activity_id' => $this->activity->id,
+            'comments' => $this->comments,
+            'user_id' => $this->author->id,
+        ];
+    }
 }

@@ -2,11 +2,12 @@
 
 namespace Bluestone\Redmine\Providers;
 
-use Bluestone\Redmine\Entities\Project;
+use Bluestone\Redmine\Entities\User;
+use Bluestone\Redmine\Entities\Tracker;
 use Bluestone\Redmine\Entities\Response;
 use Bluestone\Redmine\HttpHandler;
 
-class ProjectProvider
+class UserProvider
 {
     public function __construct(protected HttpHandler $http)
     {
@@ -14,33 +15,33 @@ class ProjectProvider
 
     public function all(array $params = []): Response
     {
-        $response = $this->http->sendRequest('get', 'projects.json', $params);
+        $response = $this->http->sendRequest('get', 'users.json', $params);
 
-        $projects = array_map(
+        $users = array_map(
             function (array $properties) use ($response) {
-                return new Project($properties);
+                return new User($properties);
             },
-            $response['body']['projects'],
+            $response['body']['users'],
         );
 
         return new Response(
             statusCode: $response['statusCode'],
-            items: $projects,
+            items: $users,
             offset: $response['body']['offset'] ?? null,
             limit: $response['body']['limit'] ?? null,
-            total: $response['body']['total_count'] ?? count($projects)
+            total: $response['body']['total_count'] ?? count($users)
         );
     }
 
     public function get(int $id, array $params = []): Response
     {
-        $response = $this->http->sendRequest('get', "projects/{$id}.json", $params);
+        $response = $this->http->sendRequest('get', "users/{$id}.json", $params);
 
-        $project = new Project($response['body']['project']);
+        $user = new User($response['body']['user']);
 
         return new Response(
             statusCode: $response['statusCode'],
-            items: [$project],
+            items: [$user],
         );
     }
 }
