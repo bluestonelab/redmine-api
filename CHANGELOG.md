@@ -4,6 +4,12 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 1.2.5 (2023-11-09)
+
+### Bug Fixes
+
+* Cannot assign bool to property Bluestone\Redmine\Entities\Version::$dueDate of type ?DateTime (#1)
+
 ## 1.2.4 (2022-12-21)
 
 ### Bug Fixes
