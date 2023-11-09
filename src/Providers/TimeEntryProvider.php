@@ -58,7 +58,11 @@ class TimeEntryProvider
 
     public function update(TimeEntry $timeEntry): Response
     {
-        $response = $this->http->sendRequest('put', "time_entries/{$timeEntry->id}.json", ['time_entry' => $timeEntry->serialize()]);
+        $response = $this->http->sendRequest(
+            'put',
+            "time_entries/{$timeEntry->id}.json",
+            ['time_entry' => $timeEntry->serialize()]
+        );
 
         return new Response(
             statusCode: $response['statusCode'],

@@ -47,7 +47,11 @@ class VersionProvider
 
     public function create(Project $project, Version $version): Response
     {
-        $response = $this->http->sendRequest('post', "projects/{$project->id}/versions.json", ['version' => $version->serialize()]);
+        $response = $this->http->sendRequest(
+            'post',
+            "projects/{$project->id}/versions.json",
+            ['version' => $version->serialize()]
+        );
 
         $version = new Version($response['body']['version']);
 
@@ -59,7 +63,11 @@ class VersionProvider
 
     public function update(Version $version): Response
     {
-        $response = $this->http->sendRequest('put', "versions/{$version->id}.json", ['version' => $version->serialize()]);
+        $response = $this->http->sendRequest(
+            'put',
+            "versions/{$version->id}.json",
+            ['version' => $version->serialize()]
+        );
 
         return new Response(
             statusCode: $response['statusCode'],
