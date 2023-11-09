@@ -4,6 +4,8 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 1.2.6 (2023-11-09)
+
 ## 1.2.5 (2023-11-09)
 
 ### Bug Fixes
